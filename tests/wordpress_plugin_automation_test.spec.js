@@ -91,10 +91,10 @@ test("TestID_003: Plugin activation if not active.", async ({ page }) => {
     await page.waitForSelector("//a[normalize-space()='Active']");
     if (await page.locator("//a[normalize-space()='Active']").isVisible()) {
       await page
-    .locator(
-      "//div[@class='wp-menu-image dashicons-before dashicons-admin-plugins']"
-    )
-    .click();
+        .locator(
+          "//div[@class='wp-menu-image dashicons-before dashicons-admin-plugins']"
+        )
+        .click();
       await page.locator("//div[contains(text(),'WP Dark Mode')]").click();
     }
   }
@@ -129,7 +129,9 @@ test("TestID_004: Enable backend darkmode from settings.", async ({ page }) => {
 
 // Test Case 5: Validate whether the Darkmode is working or not on the Admin Dashboard.
 
-test("TestID_005: Validate whether the Darkmode is working.", async ({ page }) => {
+test("TestID_005: Validate whether the Darkmode is working.", async ({
+  page,
+}) => {
   const darkModeVisible = await page
     .locator("//div[@class='switch wp-dark-mode-ignore active']")
     .isVisible();
@@ -158,26 +160,30 @@ test("TestID_007: Switch settings of WP Dark Mode.", async ({ page }) => {
   await page.locator("//div[contains(text(),'WP Dark Mode')]").click();
   await page.locator("//h4[normalize-space()='Customization']").click();
   await page.locator("//a[normalize-space()='Switch Settings']").click();
-  let changedFloatingSwitch = await page.locator("//div[@class='_selected bg-[#F9FAFB] flex flex-col items-center justify-center transition duration-75 rounded-lg relative cursor-pointer w-36 h-36']/div/div/span[@class='_thumb wp-dark-mode-ignore']").isVisible();
-
-  if(!changedFloatingSwitch){
-    await page
+  let changedFloatingSwitch = await page
     .locator(
-      "//body/div/div/div[@role='main']/div/div/div/div/div/div/div/div/section/div/div/div/div/div[1]/div[2]/div[3]"
+      "//div[@class='_selected bg-[#F9FAFB] flex flex-col items-center justify-center transition duration-75 rounded-lg relative cursor-pointer w-36 h-36']/div/div/span[@class='_thumb wp-dark-mode-ignore']"
     )
-    .click();
-  await page.locator("//button[normalize-space()='Save Changes']").click();
-  changedFloatingSwitch = true;
+    .isVisible();
+
+  if (!changedFloatingSwitch) {
+    await page
+      .locator(
+        "//body/div/div/div[@role='main']/div/div/div/div/div/div/div/div/section/div/div/div/div/div[1]/div[2]/div[3]"
+      )
+      .click();
+    await page.locator("//button[normalize-space()='Save Changes']").click();
+    changedFloatingSwitch = true;
   }
 
-  await expect(
-    changedFloatingSwitch
-  ).toBe(true);
+  await expect(changedFloatingSwitch).toBe(true);
 });
 
 // Test Case 8: From Settings -> Switch Settings - Select Custom Switch size & Scale it to 220.
 
-test("TestID_008: Select Custom Switch size & Scale it to 220.", async ({ page }) => {
+test("TestID_008: Select Custom Switch size & Scale it to 220.", async ({
+  page,
+}) => {
   await page.locator("//div[contains(text(),'WP Dark Mode')]").click();
   await page.locator("//h4[normalize-space()='Customization']").click();
   await page.locator("//a[normalize-space()='Switch Settings']").click();
@@ -292,7 +298,17 @@ test("TestID_011: Enable Darkmode Toggle Animation & change the Animation Effect
     .click();
   await page.locator("//button[normalize-space()='Save Changes']").click();
 
-  const effectName = await page.locator("//div[@class='flex items-center gap-2 cursor-pointer text-base leading-6 font-medium hover:opacity-75'][7]").innerText()==="Slide Right" || await page.locator("//div[@class='flex items-center gap-2 cursor-pointer text-base leading-6 font-medium hover:opacity-75'][7]").innerText()==="Slide Down";
+  const effectName =
+    (await page
+      .locator(
+        "//div[@class='flex items-center gap-2 cursor-pointer text-base leading-6 font-medium hover:opacity-75'][7]"
+      )
+      .innerText()) === "Slide Right" ||
+    (await page
+      .locator(
+        "//div[@class='flex items-center gap-2 cursor-pointer text-base leading-6 font-medium hover:opacity-75'][7]"
+      )
+      .innerText()) === "Slide Down";
   await expect(effectName).toBe(true);
 });
 
