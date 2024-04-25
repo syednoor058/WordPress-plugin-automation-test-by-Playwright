@@ -61,6 +61,5 @@ After running the tests, you can find the test reports in the `./playwright-repo
 
 ## Acknowledgments
 
-[Node JS](https://nodejs.org/en)
-[Playwright](https://playwright.dev/)
+[Node JS](https://nodejs.org/en), [Playwright](https://playwright.dev/), 
 [WordPress](https://wordpress.org/)
